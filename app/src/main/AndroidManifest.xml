@@ -12,10 +12,10 @@
         android:theme="@style/Theme.Album"
         tools:targetApi="31">
         <activity
-            android:name=".pegaImagem"
+            android:name=".PegaImagem"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ListaDeFotosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
