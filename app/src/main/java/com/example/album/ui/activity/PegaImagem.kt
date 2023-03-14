@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.album.databinding.ActivityPegaImagemBinding
 
+private const val REQUEST_IMAGE_CAPTURE = 1
 class PegaImagem() : AppCompatActivity() {
 
     companion object {
@@ -73,7 +74,7 @@ class PegaImagem() : AppCompatActivity() {
 
     private fun mostraCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 
 
@@ -117,7 +118,7 @@ class PegaImagem() : AppCompatActivity() {
             .setPositiveButton("Sim") { _, _ ->
                 val intent = Intent(
                     Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.fromParts("packge", packageName, null)
+                    Uri.fromParts("package", packageName, null)
                 )
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
@@ -125,6 +126,14 @@ class PegaImagem() : AppCompatActivity() {
             }
         dialog = builde.create()
         dialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.foto.setImageBitmap(imageBitmap)
+        }
     }
 }
 
