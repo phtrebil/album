@@ -68,6 +68,12 @@ class PegaImagem() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.galeria.setOnClickListener { verificaPermissaoGaleria() }
+        binding.camera.setOnClickListener { mostraCamera() }
+    }
+
+    private fun mostraCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivity(intent)
     }
 
 
@@ -83,9 +89,7 @@ class PegaImagem() : AppCompatActivity() {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     )
                 )
-
             }
-
             shouldShowRequestPermissionRationale(PERMISSAO_GALERIA) -> mostraDialogDePermissao()
 
             else -> requestGaleria.launch(PERMISSAO_GALERIA)
